@@ -1,0 +1,79 @@
+version: 2.1
+
+orbs:
+  nx: nrwl/nx@1.6.0
+  gh: circleci/github-cli@2.2.0
+
+commands:
+  lint:
+    steps:
+      - run:
+          name: Lint all affected apps
+          command: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=lint
+
+  test:
+    steps:
+      - run:
+          name: E2E test all affected apps
+          command: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=e2e
+
+  deploy:
+    steps:
+      - run:
+          name: Deploy all affected apps
+          command: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=deploy --args="--clientDeployHook=$CLIENT_WEBHOOK_URL --adminDeployWebhook=$ADMIN_WEBHOOK_URL"
+
+  create_pr:
+    steps:
+      - run:
+          name: Create PR merging development into production
+          command: gh pr create --base production --head development --title "Nightly Prod Update" --fill
+
+  merge_pr:
+    steps:
+      - run:
+          name: Merge development into production
+          command: gh pr merge development --merge
+
+jobs:
+  lint_test_deploy_dev:
+    docker:
+      - image: cimg/node:lts-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      - nx/set-shas:
+          main-branch-name: production
+          error-on-no-successful-workflow: true
+      - lint
+      - test
+      - deploy
+
+  merge_to_prod:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - gh/setup
+      - create_pr
+      - merge_pr
+
+workflows:
+  main:
+    jobs:
+      - lint_test_deploy_dev:
+          filters:
+            branches:
+              only: development
+
+  auto_merge:
+    triggers:
+      - schedule:
+          cron: '0 0 * * *'
+          filters:
+            branches:
+              only: development
+    jobs:
+      - merge_to_prod

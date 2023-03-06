@@ -5,79 +5,45 @@ orbs:
   gh: circleci/github-cli@2.2.0
 
 commands:
-  npm_install:
-    description: 'Install & Cache Dependencies'
-    steps:
-      - run: npm install
-      - save_cache:
-          key: park-ark-dependencies-{{ checksum "package-lock.json" }}
-          paths:
-            - ~/.cache
-            - node_modules
-
-  restore_npm_cache:
-    description: 'Restore Cached Dependencies'
-    steps:
-      - restore_cache:
-          keys:
-            - park-ark-dependencies-{{ checksum "package-lock.json" }}
-            - park-ark-dependencies- # used if checksum fails
-
-  setup:
-    description: 'Setup Executor'
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/project
-
   lint:
-    description: 'Lint affected code'
     steps:
       - run:
+          name: Lint all affected apps
           command: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=lint
 
   test:
-    description: 'Test affected code'
     steps:
       - run:
+          name: E2E test all affected apps
           command: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=e2e
 
   deploy:
-    description: 'Deploy affected code'
     steps:
       - run:
+          name: Deploy all affected apps
           command: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=deploy --args="--clientDeployHook=$CLIENT_WEBHOOK_URL --adminDeployWebhook=$ADMIN_WEBHOOK_URL"
 
   create_pr:
-    description: Create PR merging development into production
     steps:
       - run:
+          name: Create PR merging development into production
           command: gh pr create --base production --head development --title "Nightly Prod Update" --fill
 
   merge_pr:
-    description: Merge development into production
     steps:
       - run:
+          name: Merge development into production
           command: gh pr merge development --merge
 
 jobs:
-  initialise:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - restore_npm_cache
-      - npm_install
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - node_modules
-            # - dist
-
   lint_test_deploy_dev:
     docker:
       - image: cimg/node:lts-browsers
     steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm ci
       - nx/set-shas:
           main-branch-name: production
           error-on-no-successful-workflow: true
@@ -97,10 +63,6 @@ jobs:
 workflows:
   main:
     jobs:
-      - initialize:
-          filters:
-            branches:
-              only: development
       - lint_test_deploy_dev:
           filters:
             branches:

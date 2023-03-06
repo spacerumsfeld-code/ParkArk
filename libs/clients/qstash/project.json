@@ -1,0 +1,16 @@
+{
+  "name": "clients-qstash",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/clients/qstash/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/clients/qstash/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    "strict": true,
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -14,7 +15,17 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@park-ark/clients/email": ["libs/clients/email/src/index.ts"],
+      "@park-ark/clients/kafka": ["libs/clients/kafka/src/index.ts"],
+      "@park-ark/clients/pusher": ["libs/clients/pusher/src/index.ts"],
+      "@park-ark/clients/qstash": ["libs/clients/qstash/src/index.ts"],
+      "@park-ark/clients/redis": ["libs/clients/redis/src/index.ts"],
+      "@park-ark/clients/sms": ["libs/clients/sms/src/index.ts"],
+      "@park-ark/clients/xata": ["libs/clients/xata/src/index.ts"],
+      "@park-ark/ui": ["libs/ui/src/index.ts"],
+      "@park-ark/utils": ["libs/utils/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

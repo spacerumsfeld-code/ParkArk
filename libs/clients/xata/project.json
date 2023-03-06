@@ -1,0 +1,16 @@
+{
+  "name": "clients-xata",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/clients/xata/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/clients/xata/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

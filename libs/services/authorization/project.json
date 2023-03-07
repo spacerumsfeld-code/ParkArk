@@ -1,0 +1,16 @@
+{
+  "name": "services-authorization",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/services/authorization/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/services/authorization/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

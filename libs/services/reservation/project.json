@@ -1,0 +1,16 @@
+{
+  "name": "services-reservation",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/services/reservation/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/services/reservation/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

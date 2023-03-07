@@ -23,6 +23,21 @@
       "@park-ark/clients/redis": ["libs/clients/redis/src/index.ts"],
       "@park-ark/clients/sms": ["libs/clients/sms/src/index.ts"],
       "@park-ark/clients/xata": ["libs/clients/xata/src/index.ts"],
+      "@park-ark/services/analytics": ["libs/services/analytics/src/index.ts"],
+      "@park-ark/services/authorization": [
+        "libs/services/authorization/src/index.ts"
+      ],
+      "@park-ark/services/map": ["libs/services/map/src/index.ts"],
+      "@park-ark/services/notification": [
+        "libs/services/notification/src/index.ts"
+      ],
+      "@park-ark/services/park": ["libs/services/park/src/index.ts"],
+      "@park-ark/services/reservation": [
+        "libs/services/reservation/src/index.ts"
+      ],
+      "@park-ark/services/trip": ["libs/services/trip/src/index.ts"],
+      "@park-ark/services/user": ["libs/services/user/src/index.ts"],
+      "@park-ark/services/weather": ["libs/services/weather/src/index.ts"],
       "@park-ark/ui": ["libs/ui/src/index.ts"],
       "@park-ark/utils": ["libs/utils/src/index.ts"]
     }

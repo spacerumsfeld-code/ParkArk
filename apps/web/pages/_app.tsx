@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import '../styles/styles.css';
+import { apiGateway } from '../server/gateway';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,4 +16,4 @@ function CustomApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default CustomApp;
+export default apiGateway.withTRPC(CustomApp);

@@ -1,1 +1,1 @@
-export * from './lib/services-park';
+export * from './lib/park.service';

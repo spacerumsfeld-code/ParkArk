@@ -1,1 +1,1 @@
-export * from './lib/services-notification';
+export * from './lib/notification.service';

@@ -1,1 +1,1 @@
-export * from './lib/services-reservation';
+export * from './lib/reservation.service';

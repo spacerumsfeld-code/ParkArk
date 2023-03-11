@@ -1,1 +1,1 @@
-export * from './lib/services-trip';
+export * from './lib/trip.service';

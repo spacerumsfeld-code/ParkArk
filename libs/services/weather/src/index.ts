@@ -1,1 +1,1 @@
-export * from './lib/services-weather';
+export * from './lib/weather.service';

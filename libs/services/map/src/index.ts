@@ -1,1 +1,1 @@
-export * from './lib/services-map';
+export * from './lib/map.service';

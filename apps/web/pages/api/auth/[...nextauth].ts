@@ -7,6 +7,16 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          createdAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString(),
+        };
+      },
     }),
     /**
      * ...add more providers here.

@@ -1,0 +1,7 @@
+{
+  "databaseURL": "https://Nick-Papadakis-s-workspace-89udqg.us-east-1.xata.sh/db/Parkark",
+  "codegen": {
+    "output": "./libs/clients/xata/src/lib/xata.client.ts",
+    "moduleType": "esm"
+  }
+}

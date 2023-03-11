@@ -1,1 +1,1 @@
-export * from './lib/services-analytics';
+export * from './lib/analytics.service';

@@ -1,3 +1,3 @@
 # services-analytics
 
-This library was generated with [Nx](https://nx.dev).
+// add interesting notes here about microservices' functionality

@@ -1,8 +1,12 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { XataAdapter } from '@next-auth/xata-adapter';
+import { XataClient } from '@park-ark/clients/xata';
+
+const client = new XataClient();
 
 export default NextAuth({
-  // adapter: 'xata',
+  adapter: XataAdapter(client),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -18,20 +22,9 @@ export default NextAuth({
         };
       },
     }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
   ],
   callbacks: {
-    signIn: async (args) => {
-      // This is where you can do things like log the user in to your database, etc.
-      // console.log('login', args);
+    signIn: async ({ user, account }) => {
       return true;
     },
   },

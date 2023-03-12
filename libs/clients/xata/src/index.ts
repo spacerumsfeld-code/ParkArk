@@ -1,1 +1,1 @@
-export * from './lib/clients-xata';
+export * from './lib/xata.client';

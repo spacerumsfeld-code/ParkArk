@@ -2,10 +2,16 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { XataAdapter } from '@next-auth/xata-adapter';
 import { XataClient } from '@park-ark/clients/xata';
+import {
+  AuthorizationService,
+  authDomain,
+} from '@park-ark/services/authorization';
 
 const client = new XataClient({
   branch: process.env.XATA_BRANCH as string,
 });
+
+const authorizationService = new AuthorizationService();
 
 export default NextAuth({
   adapter: XataAdapter(client),
@@ -27,14 +33,49 @@ export default NextAuth({
       },
     }),
   ],
-  callbacks: {
-    signIn: async ({ user, account }) => {
+  // callbacks: {
+  //   signIn: async ({ user }) => {
+  //     /** update user lastLogon */
+
+  //     /** Add something to Authorization Service */
+  //     try {
+  //       await authorizationService.setUserSession(user.id);
+  //     } catch (e) {
+  //       console.log('Failed to set user session in Authorization Service!', e);
+  //     }
+
+  //     const { data: sessionData } = await authorizationService.getUserSession(user.id);
+
+  //     console.log(sessionData);
+
+  //     return true;
+  //   },
+  // },
+  events: {
+    signIn: async ({ user, isNewUser }) => {
       /** update user lastLogon */
 
-      /** Add something to Authorization Service */
-      console.log('we have signed in and can do the authorization handoff now');
-      console.log('user', user, 'account', account);
-      return true;
+      /** Set user session in Authorization service */
+      try {
+        await authorizationService.setUserSession(user.id);
+      } catch (e) {
+        console.log('Failed to set user session in Authorization Service!', e);
+      }
+
+      /** Set user role in Authorization if new user */
+      if (isNewUser) {
+        try {
+          await authorizationService.setUserRole(
+            user.id,
+            authDomain.UserRoleEnum.basic
+          );
+        } catch (e) {
+          console.log('Failed to set user role in Authorization Service!', e);
+        }
+      }
+    },
+    signOut({ session }) {
+      /** Delete session in Authorization Service */
     },
   },
 });

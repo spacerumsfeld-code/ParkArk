@@ -1,1 +1,1 @@
-export * from './lib/clients-redis';
+export * from './lib/redis.client';

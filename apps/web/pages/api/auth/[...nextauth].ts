@@ -22,7 +22,6 @@ export default NextAuth({
       allowDangerousEmailAccountLinking: true,
       profile(profile) {
         return {
-          /** this id field is actually set by Xata, but this field is still required here to satisfy typing s*/
           id: profile.name,
           name: profile.name,
           email: profile.email,
@@ -33,36 +32,18 @@ export default NextAuth({
       },
     }),
   ],
-  // callbacks: {
-  //   signIn: async ({ user }) => {
-  //     /** update user lastLogon */
-
-  //     /** Add something to Authorization Service */
-  //     try {
-  //       await authorizationService.setUserSession(user.id);
-  //     } catch (e) {
-  //       console.log('Failed to set user session in Authorization Service!', e);
-  //     }
-
-  //     const { data: sessionData } = await authorizationService.getUserSession(user.id);
-
-  //     console.log(sessionData);
-
-  //     return true;
-  //   },
-  // },
   events: {
     signIn: async ({ user, isNewUser }) => {
       /** update user lastLogon */
 
-      /** Set user session in Authorization service */
+      /** Set user session. */
       try {
         await authorizationService.setUserSession(user.id);
       } catch (e) {
         console.log('Failed to set user session in Authorization Service!', e);
       }
 
-      /** Set user role in Authorization if new user */
+      /** If new user, set their 'basic' role. */
       if (isNewUser) {
         try {
           await authorizationService.setUserRole(
@@ -74,7 +55,7 @@ export default NextAuth({
         }
       }
     },
-    signOut({ session }) {
+    signOut(message) {
       /** Delete session in Authorization Service */
     },
   },

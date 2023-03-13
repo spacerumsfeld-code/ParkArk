@@ -6,6 +6,7 @@ import {
   AuthorizationService,
   authDomain,
 } from '@park-ark/services/authorization';
+import { setCookie } from 'cookies-next';
 
 const client = new XataClient({
   branch: process.env.XATA_BRANCH as string,
@@ -34,6 +35,8 @@ export default NextAuth({
   ],
   events: {
     signIn: async ({ user, isNewUser }) => {
+      /** Testing httpOnly cookie */
+
       /** update user lastLogon */
 
       /** Set user session. */

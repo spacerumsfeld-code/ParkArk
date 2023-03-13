@@ -2,6 +2,18 @@
   "formatVersion": "",
   "tables": [
     {
+      "name": "parks",
+      "columns": []
+    },
+    {
+      "name": "activities",
+      "columns": []
+    },
+    {
+      "name": "things_to_do",
+      "columns": []
+    },
+    {
       "name": "nextauth_users",
       "columns": [
         {

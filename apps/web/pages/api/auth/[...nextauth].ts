@@ -13,20 +13,28 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      allowDangerousEmailAccountLinking: true,
+      profile(profile) {
+        return {
+          /** this id field is actually set by Xata, but this field is still required here to satisfy typing s*/
+          id: profile.name,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          createdAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString(),
+        };
+      },
     }),
   ],
   callbacks: {
     signIn: async ({ user, account }) => {
+      /** update user lastLogon */
+
+      /** Add something to Authorization Service */
       console.log('we have signed in and can do the authorization handoff now');
       console.log('user', user, 'account', account);
       return true;
     },
-    // redirect: async ({ url, baseUrl }) => {
-    //   console.log(
-    //     'we have redirected and can do the authorization handoff now'
-    //   );
-    //   console.log('url', url, 'baseUrl', baseUrl);
-    //   return url;
-    // },
   },
 });

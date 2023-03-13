@@ -1,10 +1,17 @@
 import React from 'react';
+import { signOut } from 'next-auth/react';
 
-export const DashboardPage = () => {
+const DashboardPage = () => {
   return (
     <>
       <h1>Dashboard</h1>
-      <button onClick={() => console.log('lol')}>Logout</button>
+      <button
+        onClick={() => signOut({ callbackUrl: 'http://localhost:4200/login' })}
+      >
+        Logout
+      </button>
     </>
   );
 };
+
+export default DashboardPage;

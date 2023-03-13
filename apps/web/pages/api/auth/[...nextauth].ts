@@ -6,7 +6,8 @@ import {
   AuthorizationService,
   authDomain,
 } from '@park-ark/services/authorization';
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
+import { NextApiRequest } from 'next';
 
 const client = new XataClient({
   branch: process.env.XATA_BRANCH as string,
@@ -14,52 +15,64 @@ const client = new XataClient({
 
 const authorizationService = new AuthorizationService();
 
-export default NextAuth({
-  adapter: XataAdapter(client),
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      allowDangerousEmailAccountLinking: true,
-      profile(profile) {
-        return {
-          id: profile.name,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture,
-          createdAt: new Date().toISOString(),
-          lastLogin: new Date().toISOString(),
-        };
-      },
-    }),
-  ],
-  events: {
-    signIn: async ({ user, isNewUser }) => {
-      /** Testing httpOnly cookie */
+// eslint-disable-next-line import/no-anonymous-default-export
+export default (req: any, res: any) =>
+  NextAuth(req, res, {
+    adapter: XataAdapter(client),
+    providers: [
+      GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID as string,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+        allowDangerousEmailAccountLinking: true,
+        profile(profile) {
+          return {
+            id: profile.name,
+            name: profile.name,
+            email: profile.email,
+            image: profile.picture,
+            createdAt: new Date().toISOString(),
+            lastLogin: new Date().toISOString(),
+          };
+        },
+      }),
+    ],
+    events: {
+      signIn: async (message) => {
+        console.log('where the fuck is my session', message);
+        /** Testing httpOnly cookie */
+        const sessionId = getCookie('next-auth.session-token', { req, res });
+        console.log(sessionId);
+        console.log('signIn cookies', req.cookies);
 
-      /** update user lastLogon */
+        /** update user lastLogon */
 
-      /** Set user session. */
-      try {
-        await authorizationService.setUserSession(user.id);
-      } catch (e) {
-        console.log('Failed to set user session in Authorization Service!', e);
-      }
-
-      /** If new user, set their 'basic' role. */
-      if (isNewUser) {
+        /** Set user session. */
         try {
-          await authorizationService.setUserRole(
-            user.id,
-            authDomain.UserRoleEnum.basic
-          );
+          await authorizationService.setUserSession(message.user.id);
         } catch (e) {
-          console.log('Failed to set user role in Authorization Service!', e);
+          console.log(
+            'Failed to set user session in Authorization Service!',
+            e
+          );
         }
-      }
+
+        /** If new user, set their 'basic' role. */
+        if (message.isNewUser) {
+          try {
+            await authorizationService.setUserRole(
+              message.user.id,
+              authDomain.UserRoleEnum.basic
+            );
+          } catch (e) {
+            console.log('Failed to set user role in Authorization Service!', e);
+          }
+        }
+      },
+      session(message) {
+        console.log(message);
+      },
+      signOut(_message) {
+        /** Delete session in Authorization Service */
+      },
     },
-    signOut(message) {
-      /** Delete session in Authorization Service */
-    },
-  },
-});
+  });

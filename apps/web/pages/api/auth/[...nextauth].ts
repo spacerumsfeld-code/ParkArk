@@ -6,8 +6,8 @@ import {
   AuthorizationService,
   authDomain,
 } from '@park-ark/services/authorization';
-import { getCookie, setCookie } from 'cookies-next';
-import { NextApiRequest } from 'next';
+import { getCookie } from 'cookies-next';
+import { getServerSession } from 'next-auth';
 
 const client = new XataClient({
   branch: process.env.XATA_BRANCH as string,
@@ -38,6 +38,13 @@ export default (req: any, res: any) =>
     ],
     events: {
       signIn: async (message) => {
+        // wait 5 seconds
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+
+        // const session = await getServerSession({ req, res });
+
+        // console.log('session bro lets do it', session);
+
         console.log('where the fuck is my session', message);
         /** Testing httpOnly cookie */
         const sessionId = getCookie('next-auth.session-token', { req, res });

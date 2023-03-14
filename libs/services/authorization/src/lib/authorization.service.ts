@@ -4,9 +4,9 @@ import { UserRoleEnum } from './domain/index';
 export class AuthorizationService {
   private readonly client = new RedisClient();
 
-  public async setUserSession(userId: string) {
+  public async setSession(sessionToken: string, userId: string) {
     try {
-      await this.client.setKey(`${userId}-authorized}`, 'true');
+      await this.client.setKey(`session:${sessionToken}`, userId);
     } catch (e) {
       throw new Error(
         `Failed to set validSession in Authorization Service!, ${e}`
@@ -19,10 +19,10 @@ export class AuthorizationService {
     };
   }
 
-  public async getUserSession(userId: string) {
+  public async getSession(sessionId: string) {
     let validSession;
     try {
-      validSession = await this.client.getKey(`${userId}-authorized}`);
+      validSession = await this.client.getKey(`session:${sessionId}`);
     } catch (e) {
       throw new Error(
         `Failed to get user session in Authorization Service!, ${e}`

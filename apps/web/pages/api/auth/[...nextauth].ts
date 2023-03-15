@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth';
 import { generateAuthOptions } from '../../../server/auth';
 
-const handler = (req: NextApiRequest, res: NextApiResponse) =>
+const nextAuthHandler = (req: NextApiRequest, res: NextApiResponse) =>
   NextAuth(req, res, generateAuthOptions(req));
 
-export default handler;
+export default nextAuthHandler;

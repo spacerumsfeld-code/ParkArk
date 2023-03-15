@@ -47,12 +47,13 @@ export const generateAuthOptions = (req?: NextApiRequest): NextAuthOptions => ({
   events: {
     signIn: async ({ user, isNewUser }) => {
       const lol = req?.cookies;
-      /** Since we cant do shit here and cant get session, at least set user ROLE to basic if new user
-       */
+      /** Set user role if new user. */
+
+      /** one last hurrah at setting token cookie. */
       console.log('user side effect', user);
     },
     signOut: async (message) => {
-      /** delete session key in redis. */
+      /** delete session out of Redis */
     },
   },
 });

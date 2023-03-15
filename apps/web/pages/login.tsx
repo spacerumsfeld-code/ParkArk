@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginModal } from '../components/LoginModal';
+import { LoginModal } from '../components/modals/LoginModal';
 import { AuthorizationService } from '@park-ark/services/authorization';
 import { GetServerSideProps } from 'next';
 

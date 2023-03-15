@@ -5,7 +5,7 @@ import {
   LandingPricingSection,
   LandingCTASection,
   LandingFooterSection,
-} from '../components/landing/index';
+} from '../components/landing/landingBarrel';
 
 type LandingPageProps = {
   //

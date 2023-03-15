@@ -40,10 +40,10 @@ export const LandingHeroSection = () => {
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Parkark</span>
               <Image
-                src={'/logos/colorNoBG.svg'}
+                src={'/logos/blackNoBG.svg'}
                 alt="Your Company"
-                height="60"
-                width="60"
+                height="100"
+                width="100"
               />
             </a>
           </div>

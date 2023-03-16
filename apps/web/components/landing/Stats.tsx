@@ -1,18 +1,26 @@
+/** @Data -- load from CMS eventually */
+
 const stats = [
-  { id: 1, name: 'Creators on the platform', value: '8,000+' },
-  { id: 2, name: 'Flat platform fee', value: '3%' },
-  { id: 3, name: 'Uptime guarantee', value: '99.9%' },
-  { id: 4, name: 'Paid out to creators', value: '$70M' },
+  { id: 1, name: 'Trips planned', value: '8,000 +' },
+  { id: 2, name: 'Outdoor activities enjoyed', value: '7000 +' },
+  { id: 3, name: 'Adventurers like you', value: '1 +' },
+  { id: 4, name: 'Donated to national parks', value: '$0' },
 ];
 
-export const LandingStatsSection = () => {
+type LandingStatsSectionProps = {
+  //
+};
+
+export const LandingStatsSection: React.FC<LandingStatsSectionProps> = () => {
+  /** @Render */
   return (
     <div id="LandingStats" className="bg-white py-24 sm:py-32">
+      <div className="flex align-center justify-center pb-16">Stats</div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Trusted by creators worldwide
+              Trusted by outdoor adventurers across the nation
             </h2>
             <p className="mt-4 text-lg leading-8 text-gray-600">
               Lorem ipsum dolor sit amet consect adipisicing possimus.

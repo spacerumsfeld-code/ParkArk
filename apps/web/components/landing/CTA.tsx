@@ -1,4 +1,17 @@
-export const LandingCTASection = () => {
+import { Button, ButtonSizeEnum, ButtonStyleEnum } from '@park-ark/ui/*';
+import router from 'next/router';
+
+type LandingCTASectionProps = {
+  //
+};
+
+export const LandingCTASection: React.FC<LandingCTASectionProps> = () => {
+  /** @Actions */
+  const handleCTAButtonClick = () => {
+    router.push('/login');
+  };
+
+  /** @Render */
   return (
     <div id="LandingCTA" className="bg-white">
       <div className="py-24 px-6 sm:px-6 sm:py-32 lg:px-8">
@@ -9,22 +22,17 @@ export const LandingCTASection = () => {
             Start using our app today.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-            Incididunt sint fugiat pariatur cupidatat consectetur sit cillum
-            anim id veniam aliqua proident excepteur commodo do ea.
+            Free to try, no credit card required. We&lsquo;ll never charge you
+            for the basic version of our app.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a
-              href="#"
-              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            <Button
+              onClick={() => handleCTAButtonClick()}
+              style={ButtonStyleEnum.secondary}
+              size={ButtonSizeEnum.lg}
             >
-              Get started
-            </a>
-            <a
-              href="#"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Learn more <span aria-hidden="true">→</span>
-            </a>
+              <Button.Label>Get Started</Button.Label>
+            </Button>
           </div>
         </div>
       </div>

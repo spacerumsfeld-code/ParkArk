@@ -4,7 +4,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/image';
 import React from 'react';
-import { useRouter } from 'next/router';
+import router from 'next/router';
 import { Button, ButtonSizeEnum, ButtonStyleEnum } from '@park-ark/ui/index';
 
 const navigationItems = [
@@ -21,9 +21,6 @@ type LandingHeroSectionProps = {
 export const LandingHeroSection: React.FC<LandingHeroSectionProps> = () => {
   /** @State */
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  /** @Hooks */
-  const router = useRouter();
 
   /** @Actions */
   const scrollToSection = (sectionId: string) => {

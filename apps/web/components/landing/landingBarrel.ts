@@ -13,14 +13,30 @@ export * from './Footer';
  4. Get stats, pricing, and Features from CMS
  5. Have calls to action link to /login page.
  6. Test suite to ensure CTAs work.
+ 7. Add privacy policy and terms of service links to footer
+  8. Add social media links to footer
 
  @Hero
-  1. Change icon
-  2. Make 'login' direct to /login (duh!)
-  3. Add proper color scheme
-  4. Have top links scroll to sections of page
-  5. Remove pill notification
-  6. reduce distance between top nav items and main section
+  1. Change icon --DONE
+  2. Make 'login' direct to /login (duh!) --DONE
+  3. Add proper color scheme --DONE (MVP)
+  4. Have top links scroll to sections of page --DONE
+  5. Remove pill notification --DONE
+  6. reduce distance between top nav items and main section --DONE
+  7. Replace button element
+  8. make icon link to /login
+  9. try to add gradient that is greenish this time
+  10. Update Mobile click on navigation item to also close mobile menu.
+  11. replace login text in top nav with alt styled button
 
-  @
+  @Features Section
+  1. Make feature section re-usable, left/right prop to switch order of image/text
+  2. fill in with basic features we think will be attractive, but its just filler copy for now
+  3.
+
+  @Stats Section
+
+  @Pricing Section
+
+  @CTA Section
  */

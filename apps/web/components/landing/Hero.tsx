@@ -4,6 +4,8 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/image';
 import React from 'react';
+import { useRouter } from 'next/router';
+import { Button, ButtonSizeEnum, ButtonStyleEnum } from '@park-ark/ui/index';
 
 const navigationItems = [
   { name: 'Features', sectionId: 'LandingFeatures' },
@@ -12,12 +14,19 @@ const navigationItems = [
   { name: 'Get Started', sectionId: 'LandingCTA' },
 ];
 
-export const LandingHeroSection = () => {
+type LandingHeroSectionProps = {
+  //
+};
+
+export const LandingHeroSection: React.FC<LandingHeroSectionProps> = () => {
   /** @State */
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  /** @Hooks */
+  const router = useRouter();
+
   /** @Actions */
-  const scrollToSection = React.useCallback((sectionId: string) => {
+  const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
 
     if (element) {
@@ -26,7 +35,11 @@ export const LandingHeroSection = () => {
         block: 'start',
       });
     }
-  }, []);
+  };
+
+  const handleCTAButtonClick = () => {
+    router.push('/login');
+  };
 
   /** @Render */
   return (
@@ -37,15 +50,15 @@ export const LandingHeroSection = () => {
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link className='className="-m-1.5 p-1.5' href={'/login'}>
               <span className="sr-only">Parkark</span>
               <Image
                 src={'/logos/blackNoBG.svg'}
                 alt="Your Company"
-                height="100"
-                width="100"
+                height="80"
+                width="80"
               />
-            </a>
+            </Link>
           </div>
           <div className="flex lg:hidden">
             <button
@@ -69,12 +82,13 @@ export const LandingHeroSection = () => {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link
-              href={'/login'}
-              className="text-sm font-semibold leading-6 text-gray-900"
+            <Button
+              onClick={() => handleCTAButtonClick()}
+              style={ButtonStyleEnum.ghost}
+              size={ButtonSizeEnum.sm}
             >
-              Log in
-            </Link>
+              <Button.Label>Login</Button.Label>
+            </Button>
           </div>
         </nav>
         <Dialog
@@ -86,7 +100,7 @@ export const LandingHeroSection = () => {
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
+              <Link className='className="-m-1.5 p-1.5' href={'/login'}>
                 <span className="sr-only">Parkark</span>
                 <Image
                   src={'/logos/colorNoBG.svg'}
@@ -94,7 +108,7 @@ export const LandingHeroSection = () => {
                   height="60"
                   width="60"
                 />
-              </a>
+              </Link>
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -110,7 +124,10 @@ export const LandingHeroSection = () => {
                   {navigationItems.map((item) => (
                     <a
                       key={item.name}
-                      onClick={() => scrollToSection(item.sectionId)}
+                      onClick={() => {
+                        scrollToSection(item.sectionId);
+                        setMobileMenuOpen(false);
+                      }}
                       className="cursor-pointer -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
                       {item.name}
@@ -118,12 +135,13 @@ export const LandingHeroSection = () => {
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  <Button
+                    onClick={() => handleCTAButtonClick()}
+                    style={ButtonStyleEnum.ghost}
+                    size={ButtonSizeEnum.sm}
                   >
-                    Log in
-                  </a>
+                    <Button.Label>Login</Button.Label>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -163,17 +181,18 @@ export const LandingHeroSection = () => {
               Explore more.
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              The world is your oyster. Do cool shit with your friends in
+              The world is your oyster. Do cool stuff with your friends in
               nature, made easy by our app with access to over 6300+ things to
-              do across 489+ parks. Yippee.
+              do across 489+ parks. Yas.
             </p>
             <div className="mt-6 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md bg-green-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:green-300 focus-visible:outline focus-visible:outline-500 focus-visible:outline-offset-2 focus-visible:outline-green-900"
+              <Button
+                onClick={() => handleCTAButtonClick()}
+                style={ButtonStyleEnum.secondary}
+                size={ButtonSizeEnum.lg}
               >
-                Get started
-              </a>
+                <Button.Label>Get Started</Button.Label>
+              </Button>
             </div>
           </div>
         </div>

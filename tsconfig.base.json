@@ -38,7 +38,7 @@
       "@park-ark/services/trip": ["libs/services/trip/src/index.ts"],
       "@park-ark/services/user": ["libs/services/user/src/index.ts"],
       "@park-ark/services/weather": ["libs/services/weather/src/index.ts"],
-      "@park-ark/ui/*": ["libs/ui/src/*"],
+      "@park-ark/ui/*": ["libs/ui/src/index"],
       "@park-ark/utils": ["libs/utils/src/index.ts"]
     }
   },

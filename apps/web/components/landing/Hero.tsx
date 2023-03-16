@@ -95,7 +95,7 @@ export const LandingHeroSection: React.FC<LandingHeroSectionProps> = () => {
           as="div"
           className="lg:hidden"
           open={mobileMenuOpen}
-          onClose={setMobileMenuOpen}
+          onClose={() => console.log('close')}
         >
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
@@ -103,7 +103,7 @@ export const LandingHeroSection: React.FC<LandingHeroSectionProps> = () => {
               <Link className='className="-m-1.5 p-1.5' href={'/login'}>
                 <span className="sr-only">Parkark</span>
                 <Image
-                  src={'/logos/colorNoBG.svg'}
+                  src={'/logos/blackNoBG.svg'}
                   alt="Your Company"
                   height="60"
                   width="60"
@@ -122,16 +122,17 @@ export const LandingHeroSection: React.FC<LandingHeroSectionProps> = () => {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                   {navigationItems.map((item) => (
-                    <a
+                    <div
                       key={item.name}
-                      onClick={() => {
+                      onTouchStart={() => {
                         scrollToSection(item.sectionId);
-                        setMobileMenuOpen(false);
+                        /** if line below not commented, scroll does not work. Nice. */
+                        // setMobileMenuOpen(false);
                       }}
                       className="cursor-pointer -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
                       {item.name}
-                    </a>
+                    </div>
                   ))}
                 </div>
                 <div className="py-6">
@@ -181,9 +182,9 @@ export const LandingHeroSection: React.FC<LandingHeroSectionProps> = () => {
               Explore more.
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              The world is your oyster. Do cool stuff with your friends in
-              nature, made easy by our app with access to over 6300+ things to
-              do across 489+ parks. Yas.
+              Discover the natural beauty of America&apos;s national parks with
+              our app that makes it easy to plan and organize your next
+              adventure.
             </p>
             <div className="mt-6 flex items-center justify-center gap-x-6">
               <Button

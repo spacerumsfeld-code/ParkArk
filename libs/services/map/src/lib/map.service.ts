@@ -1,2 +1,5 @@
-export class MapService {}
-export class NotificationService {}
+import { MapDataAccessObject } from './map.dao';
+
+export class MapService {
+  private readonly dao = new MapDataAccessObject();
+}
